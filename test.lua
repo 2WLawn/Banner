@@ -72,6 +72,13 @@ function run()
     mythicName = fancy(mythicName.Name)
     legendaryName = fancy(legendaryName.Name)
     
+    local mentionString = ""
+    local mentionPeople = {}
+    
+    if legendaryName == "Dio" then
+        table.insert(mentionPeople,"977328633960083497")
+    end
+    
     local data = {
         ["content"] = mentionString,
         ["username"] = "Anime Adventures Banner",
@@ -90,7 +97,6 @@ function run()
                
         }}}}
             
-    local mentionPeople = {}
     
     if Workspace.travelling_merchant:FindFirstChild("stand") then
         local itemsInShop = Workspace.travelling_merchant.stand.items:GetChildren()
@@ -111,7 +117,6 @@ function run()
         end
     end
     
-    local mentionString = ""
     for i,v in pairs(mentionPeople) do
         mentionString = mentionString.."<@"..v.."> "
     end
