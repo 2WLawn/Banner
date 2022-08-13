@@ -11,8 +11,6 @@ if not table.find(bannerBots,player.Name) then return end
 
 getgenv().BannerBot = "Banner-Bot.json"
 
-local renames = {broly = "Broly", erwin = "Erwin"}
-
 local curTime = "0"
 
 if isfile(BannerBot) then
@@ -26,6 +24,32 @@ else
     end
     local json = http:JSONEncode(curTime)
     writefile(BannerBot, json)
+end
+
+function fancy(word)
+	
+	word = string.gsub(word,"_"," ")
+	word = string.gsub(word,"-"," ")
+	word = string.gsub(word,"%d","")
+	
+	local split = string.split(word," ")
+	for i,v in pairs(split)do
+		local firstLetter = string.sub(v,1,1)
+		firstLetter = string.upper(firstLetter)
+		split[i] = firstLetter..string.sub(v,2,-1)
+	end
+
+	local newString = nil
+
+	for i,v in pairs(split) do
+		if i == 1 then
+			newString = v
+		else
+			newString = newString.." "..v
+		end
+	end
+	
+	return newString
 end
 
 local currentBanner = player.PlayerGui
@@ -45,14 +69,8 @@ function run()
     local mythic = currentBanner["6"].Main.petimage.WorldModel
     local mythicName = mythic:FindFirstChildWhichIsA("Model") or mythic:WaitForChildWhichIsA("Model")
     local legendaryName = legendary:FindFirstChildWhichIsA("Model") or legendary:WaitForChildWhichIsA("Model")
-    mythicName = mythicName.Name
-    legendaryName = legendaryName.Name
-    if renames[mythicName] ~= nil then
-        mythicName = renames[mythicName]
-    end
-    if renames[legendaryName] ~= nil then
-        legendaryName = renames[legendaryName]
-    end
+    mythicName = fancy(mythicName.Name)
+    legendaryName = fancy(legendaryName.Name)
     
     
     local data = {
@@ -76,11 +94,7 @@ function run()
                 local itemsInShop = Workspace.travelling_merchant.stand.items:GetChildren()
                 if #itemsInShop >= 1 then
                     for i,v in pairs(itemsInShop)do
-                        local renamed = v.name
-                        
-                        if renames[renamed] ~= nil then
-                            renamed = renames[renamed]
-                        end
+                        local renamed = fancy(v.Name)
                         
                         
                         local newTable = {
