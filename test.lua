@@ -1,16 +1,17 @@
+
 task.wait(2)
-repeat task.wait() until game:IsLoaded()
 local player = game.Players.LocalPlayer
 local http = game:GetService("HttpService")
 local url = "https://discord.com/api/webhooks/1008130991191236609/DuoVIeGcc-WElKRQrchV6bWmQJ9drO2ZmZRWOG8nEEbhhGlAb_Lqs7oIkN0nE1rnQcox"
 
 local bannerBots = {"YasuoGate","blade"}
+
 if not game.PlaceId == 8304191830 then return end
 if not table.find(bannerBots,player.Name) then return end
 
-repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
-
 getgenv().BannerBot = "Banner-Bot.json"
+
+local renames = {broly = "Broly", erwin = "Erwin"}
 
 local curTime = "0"
 
@@ -46,6 +47,14 @@ function run()
     local legendaryName = legendary:FindFirstChildWhichIsA("Model") or legendary:WaitForChildWhichIsA("Model")
     mythicName = mythicName.Name
     legendaryName = legendaryName.Name
+    if renames[mythicName] ~= nil then
+        mythicName = renames[mythicName]
+    end
+    if renames[legendaryName] ~= nil then
+        legendaryName = renames[legendaryName]
+    end
+    
+    
     local data = {
         ["content"] = "",
         ["username"] = "Anime Adventures Banner",
@@ -67,9 +76,16 @@ function run()
                 local itemsInShop = Workspace.travelling_merchant.stand.items:GetChildren()
                 if #itemsInShop >= 1 then
                     for i,v in pairs(itemsInShop)do
+                        local renamed = v.name
+                        
+                        if renames[renamed] ~= nil then
+                            renamed = renames[renamed]
+                        end
+                        
+                        
                         local newTable = {
                             ['name'] = "item",
-                            ['value'] = v.Name,
+                            ['value'] = renamed,
                             }
                         table.insert(data.embeds[1].fields,newTable)
                     end
