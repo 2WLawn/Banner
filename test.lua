@@ -72,9 +72,8 @@ function run()
     mythicName = fancy(mythicName.Name)
     legendaryName = fancy(legendaryName.Name)
     
-    
     local data = {
-        ["content"] = "",
+        ["content"] = mentionString,
         ["username"] = "Anime Adventures Banner",
         ['embeds'] = {                
             {
@@ -87,26 +86,37 @@ function run()
                     }, {
                     ['name'] = "4 ⭐",
                     ['value'] = legendaryName,
-                   },  
+                   },
+               
         }}}}
             
-            if Workspace.travelling_merchant:FindFirstChild("stand") then
-                local itemsInShop = Workspace.travelling_merchant.stand.items:GetChildren()
-                if #itemsInShop >= 1 then
-                    for i,v in pairs(itemsInShop)do
-                        local renamed = fancy(v.Name)
+    local mentionPeople = {}
+    
+    if Workspace.travelling_merchant:FindFirstChild("stand") then
+        local itemsInShop = Workspace.travelling_merchant.stand.items:GetChildren()
+        if #itemsInShop >= 1 then
+            for i,v in pairs(itemsInShop)do
+                local renamed = fancy(v.Name)
                         
                         
-                        local newTable = {
-                            ['name'] = "item",
-                            ['value'] = renamed,
-                            }
-                        table.insert(data.embeds[1].fields,newTable)
-                    end
+                local newTable = {
+                    ['name'] = "item",
+                    ['value'] = renamed,
+                        }
+                table.insert(data.embeds[1].fields,newTable)
+                if renamed == "Weapon Briefcase" then
+                    table.insert(mentionPeople,"232633524107083777")
                 end
             end
-            
-            
+        end
+    end
+    
+    local mentionString = ""
+    for i,v in pairs(mentionPeople) do
+        mentionString = mentionString.."<@"..v.."> "
+    end
+    data["content"] = mentionString
+    
     data = game:GetService("HttpService"):JSONEncode(data)
 	local headers = {["content-type"] = "application/json"}
 	request = http_request or request or HttpPost or syn.request or http.request
