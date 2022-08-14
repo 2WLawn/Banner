@@ -7,10 +7,8 @@ local url = "https://discord.com/api/webhooks/1008130991191236609/DuoVIeGcc-WElK
 
 repeat task.wait() until workspace:FindFirstChild(player.Name)
 
-local bannerBots = {"YasuoGate","blade"}
 
 if not game.PlaceId == 8304191830 then return end
-if not table.find(bannerBots,player.Name) then return end
 
 getgenv().BannerBot = "Banner-Bot.json"
 
