@@ -13,17 +13,29 @@ if not game.PlaceId == 8304191830 then return end
 getgenv().BannerBot = "Banner-Bot.json"
 
 local curTime = "0"
-
+local hour = "1000"
 if isfile(BannerBot) then
-    curTime = readfile(BannerBot)
+    local data = readfile(BannerBot)
+    local stringSplit = string.split(data,",")
+    local minData = string.gmatch(stringSplit[1],"%d")
+    local hourData = string.gmatch(stringSplit[2],"%d")
+    hour = ""
+    curTime = ""
+    for num in hourData do
+        hour = hour..num
+    end
+    for num in minData do
+        curTime = curTime..num
+    end
 else
     local timeTable = os.date("!*t", tick())
+    hour = tostring(timeTable["hour"])
     if timeTable["min"] > 30 then
         curTime = "0"
     else
         curTime = "30"
     end
-    local json = http:JSONEncode(curTime)
+    local json = http:JSONEncode(curTime..","..hour)
     writefile(BannerBot, json)
 end
 
@@ -129,16 +141,37 @@ end
 
 function setupRun()
     local timeTable = os.date("!*t", tick())
+    local curHour = tostring(timeTable["hour"])
+    
+    if curHour ~= hour then
+        if timeTable["min"] > 30 then
+            local data = http:JSONEncode("30,"..curHour)
+            writefile(BannerBot,data)
+            local succ,err = pcall(function() run() end)
+            if err then
+                warn(err)
+            end
+        else
+            local data = http:JSONEncode("0,"..curHour)
+            writefile(BannerBot,data)
+            local succ,err = pcall(function() run() end)
+            if err then
+                warn(err)
+            end
+        end
+        return
+    end
+    
     
     if curTime == "0" and timeTable["min"] > 30 then
-        local data = http:JSONEncode(30)
+        local data = http:JSONEncode("30,"..curHour)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
         if err then
             warn(err)
         end
     elseif curTime == "30" and timeTable["min"] < 30 then
-        local data = http:JSONEncode(0)
+        local data = http:JSONEncode("0,"..curHour)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
         if err then
