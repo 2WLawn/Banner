@@ -448,14 +448,14 @@ end
 function setupRun()
     local timeTable = os.date("!*t", tick())
     
-    if (curTime == "0" and timeTable["min"] > 30) or timeTable["hour"] ~= curHour then
+    if (curTime == "0" and timeTable["min"] > 30) then
         local data = http:JSONEncode(30)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
         if err then
             warn(err)
         end
-    elseif (curTime == "30" and timeTable["min"] < 30) or timeTable["hour"] ~= curHo then
+    elseif (curTime == "30" and timeTable["min"] < 30)  then
         local data = http:JSONEncode(0)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
