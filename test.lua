@@ -365,6 +365,10 @@ for i,v in pairs(currentBanner:GetChildren()) do
     end
 end
 
+while currentBanner == player.PlayerGui do
+    task.wait()
+end
+
 print("Banner Bot Running")
 local antiSpam = true
 
