@@ -1,7 +1,12 @@
+
+task.wait(2)
 repeat task.wait() until game:IsLoaded()
 local player = game.Players.LocalPlayer
 local http = game:GetService("HttpService")
 local url = "https://discord.com/api/webhooks/1008130991191236609/DuoVIeGcc-WElKRQrchV6bWmQJ9drO2ZmZRWOG8nEEbhhGlAb_Lqs7oIkN0nE1rnQcox"
+
+repeat task.wait() until workspace:FindFirstChild(player.Name)
+
 
 if not game.PlaceId == 8304191830 then return end
 
@@ -443,14 +448,14 @@ end
 function setupRun()
     local timeTable = os.date("!*t", tick())
     
-    if (curTime == "0" and timeTable["min"] > 30) then
+    if (curTime == "0" and timeTable["min"] > 30) or timeTable["hour"] ~= curHour then
         local data = http:JSONEncode(30)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
         if err then
             warn(err)
         end
-    elseif (curTime == "30" and timeTable["min"] < 30) then
+    elseif (curTime == "30" and timeTable["min"] < 30) or timeTable["hour"] ~= curHo then
         local data = http:JSONEncode(0)
         writefile(BannerBot,data)
         local succ,err = pcall(function() run() end)
