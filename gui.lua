@@ -1,3 +1,4 @@
+repeat task.wait() until game:IsLoaded()
 local screenGui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
 local frame = Instance.new("Frame")
 frame.Position = UDim2.new(0.188,0,0.187,0)
