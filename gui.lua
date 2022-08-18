@@ -1,4 +1,5 @@
 repeat task.wait() until game:IsLoaded()
+if not game.PlaceId == 8304191830 then return end
 local player = game.Players.LocalPlayer
 local http = game:GetService("HttpService")
 local screenGui = Instance.new("ScreenGui",game.Players.LocalPlayer.PlayerGui)
