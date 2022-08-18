@@ -1,12 +1,7 @@
-
-task.wait(2)
 repeat task.wait() until game:IsLoaded()
 local player = game.Players.LocalPlayer
 local http = game:GetService("HttpService")
 local url = "https://discord.com/api/webhooks/1008130991191236609/DuoVIeGcc-WElKRQrchV6bWmQJ9drO2ZmZRWOG8nEEbhhGlAb_Lqs7oIkN0nE1rnQcox"
-
-repeat task.wait() until workspace:FindFirstChild(player.Name)
-
 
 if not game.PlaceId == 8304191830 then return end
 
