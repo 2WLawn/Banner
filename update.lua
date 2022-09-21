@@ -19,7 +19,7 @@ else
 end
 ------------------------------
 
-
+local titleName = "Lok's too lazy to make macro's macro 1.1"
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
 local mouse = game.Players.LocalPlayer:GetMouse()
@@ -168,7 +168,7 @@ function sex()
     -- Uilib Shits
 
     local DiscordLib = loadstring(game:HttpGet "https://raw.githubusercontent.com/Forever4D/Lib/main/DiscordLib2.lua")()
-    local win = DiscordLib:Window("[🌒UPD 3] Anime Adventures 1.4.6".." - "..tostring(identifyexecutor()))
+    local win = DiscordLib:Window(titleName.." - "..tostring(identifyexecutor()))
     local serv = win:Server("Anime Adventures", "http://www.roblox.com/asset/?id=6031075938")
             
     if game.PlaceId == 8304191830 then
